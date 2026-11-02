@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8ff">
+  <meta name="description" content="Find local helpers for cleaning, repairs, errands, moving, and more across the Philippines.">
+  <title>MultiTask — Good help, right nearby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #2866ed;
+      --blue-dark: #194bb7;
+      --navy: #14223a;
+      --ink: #243149;
+      --muted: #758197;
+      --pale: #f5f8ff;
+      --line: #e6ebf3;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: white;
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .wrap {
+      width: min(1160px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    /* Header and hammer-T wordmark */
+    .header {
+      height: 76px;
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      background: rgb(255 255 255 / 94%);
+      border-bottom: 1px solid #e9edf3;
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      width: min(1320px, calc(100% - 64px));
+      height: 100%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      color: var(--blue);
+      font: 800 22px Manrope, sans-serif;
+      letter-spacing: -1.5px;
+    }
+
+    .brand-word {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding-bottom: 5px;
+    }
+
+    .brand-word::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--blue);
+      content: "";
+    }
+
+    .brand-t {
+      width: 17px;
+      height: 22px;
+      margin: 0 -1px 0 0;
+      overflow: visible;
+    }
+
+    .brand-t path {
+      fill: none;
+      stroke: var(--blue);
+      stroke-width: 3.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .brand-dot { color: #f18e72; }
+
+    .nav-links {
+      display: flex;
+      gap: 34px;
+      margin-left: 72px;
+      color: #566174;
+      font-size: 13px;
+    }
+
+    .nav-links a:hover, .login:hover { color: var(--blue); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-left: auto;
+      font-size: 13px;
+    }
+
+    .login { color: #566174; }
+
+    .button {
+      min-height: 48px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+    .button-blue { color: white; background: var(--blue); }
+    .button-blue:hover { background: var(--blue-dark); }
+    .button-white { color: var(--navy); background: white; }
+    .button-small { min-height: 41px; padding-inline: 16px; font-size: 12px; }
+
+    /* Main hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 48px;
+      align-items: center;
+      padding-top: 48px;
+      padding-bottom: 72px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    .eyebrow-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: #85cba8;
+      box-shadow: 0 0 0 4px #85cba826;
+      vertical-align: 1px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: var(--navy);
+      font-family: Manrope, sans-serif;
+    }
+
+    h1 {
+      margin: 20px 0 15px;
+      font-size: clamp(54px, 6.5vw, 76px);
+      line-height: 1.06;
+      letter-spacing: -3px;
+    }
+
+    .accent {
+      color: var(--blue);
+      font: italic 400 1em var(--serif);
+      letter-spacing: -2px;
+    }
+
+    .hero-copy > p {
+      max-width: 420px;
+      margin-bottom: 25px;
+      color: #657187;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .search-box {
+      max-width: 570px;
+      min-height: 74px;
+      padding: 9px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      background: white;
+      box-shadow: 0 13px 35px #1027500d;
+    }
+
+    .search-field {
+      min-width: 0;
+      padding-left: 8px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex: 1;
+    }
+
+    .search-icon {
+      width: 23px;
+      color: var(--blue);
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .field-content { min-width: 0; display: grid; gap: 3px; }
+    .field-label { color: #98a1b0; font-size: 9px; }
+
+    .search-field input {
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      color: var(--navy);
+      background: transparent;
+      font-size: 12px;
+    }
+
+    .search-field input::placeholder { color: #8792a4; }
+    .divider { width: 1px; height: 35px; margin: 0 8px; background: var(--line); }
+    .location-field { padding-left: 10px; flex: .7; }
+
+    .search-submit {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: var(--blue);
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .search-submit:hover { background: var(--blue-dark); }
+
+    .popular {
+      margin: 13px 0 26px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      color: #9aa3b0;
+      font-size: 10px;
+    }
+
+    .popular a {
+      padding-bottom: 2px;
+      border-bottom: 1px solid #cad4e1;
+      color: #5c687c;
+    }
+
+    .popular a:hover { color: var(--blue); border-color: var(--blue); }
+
+    .trust {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: #7d8797;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .trust b { color: #34415a; }
+    .avatars { display: flex; padding-left: 5px; }
+
+    .avatars span {
+      width: 26px;
+      height: 26px;
+      margin-left: -5px;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #ebc7ad;
+      color: #7e5545;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .avatars span:nth-child(2) { background: #c6d8c7; color: #496752; }
+    .avatars span:nth-child(3) { background: #c9d7f0; color: #455c8f; }
+    .avatars span:nth-child(4) { background: #e9edf5; color: var(--blue); }
+
+    .hero-visual { height: 440px; position: relative; }
+
+    .hero-photo {
+      position: absolute;
+      inset: 8px 23px 12px 34px;
+      overflow: hidden;
+      border-radius: 48% 48% 16px 16px;
+      background: #d6e4df;
+    }
+
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .photo-shade { position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, #12233e65); }
+
+    .note {
+      position: absolute;
+      padding: 12px 14px;
+      border: 1px solid #edf0f5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      box-shadow: 0 14px 40px #1d33511a;
+      color: #778195;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .note b { color: #27354c; font-size: 11px; }
+    .note-top { top: 55px; left: 0; }
+    .note-bottom { right: -8px; bottom: 58px; }
+    .note-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 10px; background: #e8f0ff; color: var(--blue); font-size: 19px; }
+    .stars { color: #e8a74b; letter-spacing: 1px; font-size: 10px; }
+    .verified { color: #299c68; }
+    .photo-caption { position: absolute; right: 42px; bottom: 27px; color: white; font-size: 9px; }
+    .photo-caption span { margin-right: 6px; color: #92e3b2; }
+
+    /* Services */
+    .services { padding-top: 25px; padding-bottom: 74px; }
+    .section-heading { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 25px; }
+    .section-heading .eyebrow { margin-bottom: 11px; }
+    .section-heading h2, .tasker-copy h2 { margin: 0; font-size: clamp(31px, 4vw, 43px); line-height: 1.15; letter-spacing: -2px; }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+
+    .category {
+      min-height: 100px;
+      padding: 14px 12px;
+      border: 1px solid #e9edf3;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      transition: transform .2s, border .2s, box-shadow .2s;
+    }
+
+    .category:hover { transform: translateY(-4px); border-color: #c8d7fc; box-shadow: 0 14px 28px #1027500c; }
+
+    .cat-icon {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: #eaf1ff;
+      color: #416fe4;
+      font-size: 21px;
+    }
+
+    .cat-repair .cat-icon { background: #fff0e8; color: #dc8c55; }
+    .cat-move .cat-icon { background: #e8f5f1; color: #45977b; }
+    .cat-errand .cat-icon { background: #f2ecfa; color: #9367bd; }
+    .category b { display: block; margin-bottom: 5px; color: #29364c; font-size: 11px; }
+    .category small { color: #929cac; font-size: 9px; }
+    .cat-arrow { align-self: flex-start; margin-left: auto; color: #aab4c4; }
+
+    .category-foot {
+      margin-top: 17px;
+      padding-top: 13px;
+      border-top: 1px solid #edf0f4;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #8791a2;
+      font-size: 10px;
+    }
+
+    /* How it works */
+    .how { color: white; background: var(--navy); }
+    .how-inner { display: grid; grid-template-columns: .9fr 1.1fr; gap: 85px; padding-top: 70px; padding-bottom: 70px; }
+    .eyebrow-light { color: #9ebaff; }
+    .how h2, .final h2 { margin: 16px 0; color: white; font-size: clamp(37px, 4.4vw, 49px); line-height: 1.12; letter-spacing: -2px; }
+    .how h2 .accent, .final h2 .accent { color: #83a9ff; }
+    .how-intro p { max-width: 330px; color: #b2bdcf; font-size: 12px; line-height: 1.75; }
+    .steps { padding-top: 5px; }
+
+    .step {
+      position: relative;
+      margin-bottom: 23px;
+      padding-bottom: 26px;
+      display: grid;
+      grid-template-columns: 43px 1fr;
+      gap: 12px;
+    }
+
+    .step:last-child { margin-bottom: 0; padding-bottom: 0; }
+    .step-number { color: #86a8ff; font: 600 11px Manrope, sans-serif; }
+    .step h3 { margin: 0 0 7px; color: white; font-size: 14px; }
+    .step p { max-width: 365px; margin: 0; color: #abb7c9; font-size: 11px; line-height: 1.65; }
+    .step-line { position: absolute; top: 22px; bottom: 0; left: 16px; width: 1px; background: #ffffff21; }
+
+    /* Tasker invitation */
+    .tasker { padding-top: 74px; padding-bottom: 74px; }
+
+    .tasker-card {
+      min-height: 335px;
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f3f7fd;
+    }
+
+    .tasker-copy { padding: 44px 40px; }
+    .tasker-copy .eyebrow { margin-bottom: 14px; }
+    .tasker-copy h2 { font-size: 39px; }
+    .tasker-copy p { max-width: 345px; margin: 13px 0 20px; color: #778397; font-size: 12px; line-height: 1.75; }
+    .tasker-photo { position: relative; min-height: 335px; }
+    .tasker-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    .photo-tag {
+      position: absolute;
+      bottom: 18px;
+      left: 20px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 9px 25px #1027501a;
+      color: #29364c;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .photo-tag small { display: block; margin-bottom: 3px; color: #98a2b1; font-size: 9px; font-weight: 400; }
+
+    /* Closing call to action and footer */
+    .final { padding-bottom: 55px; }
+
+    .final-inner {
+      position: relative;
+      min-height: 220px;
+      padding: 38px 56px;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #2763e6;
+    }
+
+    .final h2 { margin: 12px 0 0; font-size: 39px; }
+    .final-action { z-index: 1; display: flex; align-items: center; gap: 24px; }
+    .final-action p { max-width: 180px; color: #d7e2ff; font-size: 11px; line-height: 1.7; }
+    .decoration { position: absolute; right: 38%; bottom: -65px; color: #ffffff0a; font: 800 180px Manrope, sans-serif; letter-spacing: -20px; }
+
+    footer { background: #f7f9fc; }
+    .footer-main, .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .footer-main { min-height: 82px; border-bottom: 1px solid #e8edf3; }
+    .footer-main > span, .footer-nav { color: #8b95a4; font-size: 10px; }
+    .footer-nav { display: flex; gap: 22px; }
+    .footer-nav a:hover, .footer-bottom a:hover { color: var(--blue); }
+    .footer-bottom { min-height: 42px; color: #929cac; font-size: 9px; }
+    .creator { padding: 13px 16px 18px; color: #6f7b8e; background: #f7f9fc; text-align: center; font-size: 10px; }
+    .creator strong { color: var(--blue); font-weight: 700; }
+
+    .toast {
+      position: fixed;
+      z-index: 30;
+      left: 50%;
+      bottom: 22px;
+      max-width: calc(100% - 32px);
+      padding: 13px 18px;
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      box-shadow: 0 10px 30px #14233b33;
+      font-size: 12px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 15px);
+      transition: .25s;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 900px) {
+      .nav-links { margin-left: 38px; gap: 20px; }
+      .hero { gap: 25px; }
+      .categories { grid-template-columns: repeat(2, 1fr); }
+      .how-inner { gap: 40px; }
+    }
+
+    @media (max-width: 650px) {
+      .wrap { width: calc(100% - 36px); }
+      .header { height: 66px; }
+      .nav { width: calc(100% - 36px); }
+      .nav-links, .login, .nav-actions .button { display: none; }
+
+      .hero { display: flex; flex-direction: column; align-items: stretch; gap: 22px; padding-top: 38px; padding-bottom: 46px; }
+      h1 { margin: 17px 0 11px; font-size: 58px; }
+      .hero-copy > p { margin-bottom: 18px; font-size: 13px; }
+      .search-box { min-height: 67px; }
+      .search-field { gap: 5px; padding-left: 3px; }
+      .search-icon { width: 19px; font-size: 21px; }
+      .field-label { font-size: 8px; }
+      .search-field input { font-size: 10px; }
+      .divider { margin: 0 3px; }
+      .location-field { padding-left: 5px; }
+      .search-submit { width: 42px; height: 42px; flex-basis: 42px; }
+      .popular { gap: 9px; margin: 11px 0 17px; font-size: 9px; }
+      .popular a { font-size: 9px; }
+      .hero-visual { height: 300px; margin: 0 4px; }
+      .hero-photo { inset: 0 16px 7px 22px; }
+      .note { padding: 9px 11px; }
+      .note-top { top: 38px; }
+      .note-bottom { right: 0; bottom: 43px; }
+      .photo-caption { right: 27px; bottom: 20px; font-size: 8px; }
+
+      .services { padding-top: 28px; padding-bottom: 47px; }
+      .section-heading { gap: 12px; margin-bottom: 18px; }
+      .section-heading h2 { font-size: 29px; }
+      .section-heading .eyebrow { font-size: 8px; }
+      .section-heading .text-link { gap: 5px; font-size: 9px; }
+      .categories { gap: 9px; }
+      .category { min-height: 80px; padding: 9px 7px; gap: 7px; }
+      .cat-icon { width: 35px; height: 35px; flex-basis: 35px; font-size: 18px; }
+      .category b { font-size: 9px; }
+      .category small { font-size: 8px; }
+      .cat-arrow { font-size: 10px; }
+      .category-foot { font-size: 9px; }
+      .category-foot .text-link { white-space: nowrap; font-size: 9px; }
+
+      .how-inner { grid-template-columns: 1fr; gap: 33px; padding-top: 45px; padding-bottom: 47px; }
+      .how h2 { font-size: 39px; }
+      .how-intro p { font-size: 11px; }
+      .step { margin-bottom: 19px; padding-bottom: 21px; }
+      .step h3 { font-size: 13px; }
+      .step p { font-size: 10px; }
+
+      .tasker { padding-top: 46px; padding-bottom: 46px; }
+      .tasker-card { grid-template-columns: 1fr; }
+      .tasker-copy { padding: 31px 24px 25px; }
+      .tasker-copy h2 { font-size: 34px; }
+      .tasker-copy p { font-size: 11px; }
+      .tasker-photo { min-height: 220px; }
+
+      .final { padding-bottom: 34px; }
+      .final-inner { min-height: 0; padding: 32px 24px; display: block; }
+      .final h2 { font-size: 34px; }
+      .final-action { justify-content: space-between; gap: 12px; margin-top: 20px; }
+      .final-action p { max-width: 155px; font-size: 10px; }
+      .final-action .button { min-height: 43px; padding-inline: 14px; gap: 9px; font-size: 11px; }
+      .decoration { right: 5%; bottom: -50px; font-size: 140px; }
+
+      .footer-main { min-height: 0; padding: 22px 0 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
+      .footer-nav { gap: 17px; flex-wrap: wrap; font-size: 9px; }
+      .footer-bottom { min-height: 42px; font-size: 8px; }
+      .footer-bottom span:nth-child(2) { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="#home" aria-label="MultiTask home">
+        <span class="brand-word">
+          <span>Multi</span><svg class="brand-t" viewBox="0 0 20 26" aria-hidden="true"><path d="M3 5h14M10 5v18"/></svg><span>ask</span><span class="brand-dot">.</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#services">Explore services</a>
+        <a href="#how-it-works">How it works</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="login" href="#get-started">Log in</a>
+        <a class="button button-blue button-small" href="#become-a-tasker">Become a tasker <span>↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>A LITTLE HELP GOES A LONG WAY</div>
+        <h1>Your day,<br>a little <span class="accent">easier.</span></h1>
+        <p>From the little things to the big to-dos, find a trusted local helper who can get it done.</p>
+
+        <form class="search-box" id="task-search">
+          <label class="search-field">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <span class="field-content">
+              <span class="field-label">What do you need help with?</span>
+              <input id="task-input" type="text" placeholder="e.g. Clean my condo">
+            </span>
+          </label>
+
+          <span class="divider"></span>
+
+          <label class="search-field location-field">
+            <span class="search-icon" aria-hidden="true">⌖</span>
+            <span class="field-content">
+              <span class="field-label">Your location</span>
+              <input id="location-input" type="text" value="Makati City" aria-label="Your location">
+            </span>
+          </label>
+
+          <button class="search-submit" type="submit" aria-label="Search tasks">→</button>
+        </form>
+
+        <div class="popular">
+          <span>Popular:</span>
+          <a href="#task-search" data-task="Home cleaning">Home cleaning</a>
+          <a href="#task-search" data-task="Furniture assembly">Furniture assembly</a>
+          <a href="#task-search" data-task="Errands">Errands</a>
+        </div>
+
+        <div class="trust">
+          <div class="avatars" aria-hidden="true"><span>J</span><span>M</span><span>A</span><span>+</span></div>
+          <span><b>Good people, good help.</b><br>Made for the way we live in the Philippines.</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-photo">
+          <img
+            src="https://www.happyhelpers.ph/cdn/shop/files/YB_-_Deep_Cleaning.jpg?v=1682406279&amp;width=1420"
+            alt="A home cleaning professional working in a Manila home"
+            fetchpriority="high">
+          <div class="photo-shade"></div>
+        </div>
+
+        <div class="note note-top">
+          <span class="note-icon" aria-hidden="true">✳</span>
+          <span><b>Small task?</b><br>Big relief.</span>
+        </div>
+
+        <div class="note note-bottom">
+          <span class="stars" aria-label="Five stars">★★★★★</span>
+          <span><b>Helpful, right nearby</b><br>Local talent. Real people.</span>
+          <span class="verified" aria-hidden="true">✓</span>
+        </div>
+
+        <div class="photo-caption"><span>●</span>Your neighborhood, ready to help</div>
+      </div>
+    </section>
+
+    <section class="services wrap" id="services">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">WHAT CAN WE HELP WITH?</div>
+          <h2>Make room for <span class="accent">your life.</span></h2>
+        </div>
+        <a class="text-link" href="#task-search">See all services <span>↗</span></a>
+      </div>
+
+      <div class="categories">
+        <a class="category" href="#task-search" data-task="Home cleaning">
+          <span class="cat-icon" aria-hidden="true">⌂</span>
+          <span><b>Home cleaning</b><small>Fresh start, fresh space</small></span>
+          <span class="cat-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="category cat-repair" href="#task-search" data-task="Handyman and repairs">
+          <span class="cat-icon" aria-hidden="true">⌁</span>
+          <span><b>Handyman & repairs</b><small>Fixes, done right</small></span>
+          <span class="cat-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="category cat-move" href="#task-search" data-task="Moving help">
+          <span class="cat-icon" aria-hidden="true">◇</span>
+          <span><b>Moving help</b><small>Make your next move</small></span>
+          <span class="cat-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="category cat-errand" href="#task-search" data-task="Errands and delivery">
+          <span class="cat-icon" aria-hidden="true">♧</span>
+          <span><b>Errands & delivery</b><small>Cross it off your list</small></span>
+          <span class="cat-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="category-foot">
+        <span>And plenty more to make your week work better.</span>
+        <a class="text-link" href="#task-search">Browse all categories <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="how" id="how-it-works">
+      <div class="how-inner wrap">
+        <div class="how-intro">
+          <div class="eyebrow eyebrow-light">SIMPLE AS 1, 2, 3</div>
+          <h2>Help is closer<br>than you <span class="accent">think.</span></h2>
+          <p>Good help, without the hassle. Get from “I need to…” to “all done” in a few easy steps.</p>
+          <a class="button button-white" href="#task-search">Find your helper <span>↗</span></a>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <span class="step-number">01</span>
+            <div>
+              <h3>Tell us what you need</h3>
+              <p>Choose a service, add a few details, and pick a time that works for you.</p>
+            </div>
+            <span class="step-line"></span>
+          </article>
+
+          <article class="step">
+            <span class="step-number">02</span>
+            <div>
+              <h3>Meet your local helper</h3>
+              <p>Browse available taskers, compare profiles, and choose the right fit.</p>
+            </div>
+            <span class="step-line"></span>
+          </article>
+
+          <article class="step">
+            <span class="step-number">03</span>
+            <div>
+              <h3>Enjoy your time back</h3>
+              <p>Coordinate directly, get it done, and pay securely when the task is complete.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tasker wrap" id="become-a-tasker">
+      <div class="tasker-card">
+        <div class="tasker-copy">
+          <div class="eyebrow">GOOD AT GETTING THINGS DONE?</div>
+          <h2>Make your skills<br>work for <span class="accent">you.</span></h2>
+          <p>Join a community of local taskers, set your own schedule, and earn on your terms.</p>
+          <a class="button button-blue" href="#task-search">Become a tasker <span>↗</span></a>
+        </div>
+
+        <div class="tasker-photo">
+          <img
+            src="https://mrbutler.com.ph/assets/images/Katrina%20Tabora.jpeg"
+            alt="A Philippines-based home services professional at work"
+            loading="lazy">
+          <div class="photo-tag"><small>Make it yours</small>Work on your terms</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final wrap" id="get-started">
+      <div class="final-inner">
+        <div>
+          <div class="eyebrow eyebrow-light">A BETTER KIND OF BUSY</div>
+          <h2>What will you do<br>with <span class="accent">your time?</span></h2>
+        </div>
+
+        <div class="final-action">
+          <p>Get the extra hands you need, right around the corner.</p>
+          <a class="button button-white" href="#task-search">Find a tasker <span>↗</span></a>
+        </div>
+
+        <span class="decoration" aria-hidden="true">m.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-main wrap">
+      <a class="brand" href="#home" aria-label="MultiTask home">
+        <span class="brand-word">
+          <span>Multi</span><svg class="brand-t" viewBox="0 0 20 26" aria-hidden="true"><path d="M3 5h14M10 5v18"/></svg><span>ask</span><span class="brand-dot">.</span>
+        </span>
+      </a>
+
+      <span>Good help. Right around the corner.</span>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#become-a-tasker">Become a tasker</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom wrap">
+      <span>© <span id="year"></span> MultiTask Philippines</span>
+      <span>Made for the moments that matter.</span>
+      <a href="mailto:hello@multitask.ph">hello@multitask.ph</a>
+    </div>
+
+    <div class="creator">Created by <strong>@clyde_dlrs</strong></div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const form = document.querySelector("#task-search");
+    const taskInput = document.querySelector("#task-input");
+    const locationInput = document.querySelector("#location-input");
+    const toast = document.querySelector(".toast");
+    let toastTimer;
+
+    function showMessage(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 3500);
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const task = taskInput.value.trim();
+      const location = locationInput.value.trim();
+
+      if (!task) {
+        taskInput.focus();
+        showMessage("What would you like help with? Add a task to get started.");
+        return;
+      }
+
+      showMessage(
+        `You're looking for “${task}”${location ? ` near ${location}` : ""}. Task matching is coming soon!`
+      );
+    });
+
+    document.querySelectorAll("[data-task]").forEach((item) => {
+      item.addEventListener("click", () => {
+        taskInput.value = item.dataset.task;
+        taskInput.focus();
+      });
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
